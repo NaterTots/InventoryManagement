@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="InventoryManagement.Client.CommodityEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL4"
+    xmlns:dat="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data.Input"
+    xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+    xmlns:data="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data"
+    mc:Ignorable="d" d:DesignHeight="725" d:DesignWidth="978">
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="326*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="600*" />
+            <ColumnDefinition Width="94*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                   Margin="4" Text="Part Number" />
+        <TextBox x:Name="textBox_PartNumber" Grid.Row="0" Grid.Column="1"
+                 VerticalAlignment="Center" 
+                 Text="{Binding Path=CurrentCommodity.PartNumber, Mode=TwoWay,
+                        ValidatesOnExceptions=True, NotifyOnValidationError=True}"/>
+        <Border Grid.Row="0" Grid.Column="2"
+                BorderBrush="Silver" BorderThickness="1"
+                CornerRadius="3" Margin="5">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" Text="Part ID" />
+                <TextBlock HorizontalAlignment="Center"
+                           Text="{Binding Path=CurrentCommodity.InventoryID, Mode=OneWay, TargetNullValue='None',
+                                  ValidatesOnNotifyDataErrors=False}" />
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           FontWeight="Bold" Margin="4" 
+                           Text="Issue Info" />
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="Description" />
+                <TextBox Grid.Row="1" Grid.Column="1"
+                          Margin="4" MinHeight="25"
+                         Text="{Binding Path=CurrentCommodity.PartDescription, Mode=TwoWay,
+                                ValidatesOnExceptions=True, NotifyOnValidationError=True}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="Vendor" />
+                <ComboBox x:Name="comboBox_Vendor" Grid.Row="2" Grid.Column="1" 
+                          Margin="4" MinHeight="25"
+                          ItemsSource="{Binding Path=VendorEntries}"
+                          SelectedItem="{Binding Path=CurrentCommodity.VendorID, Mode=TwoWay,
+                                         ValidatesOnNotifyDataErrors=False}"
+                          DisplayMemberPath="VendorName"
+                          />
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="U/M" />
+                <ComboBox x:Name="comboBox_UnitOfMeasure" Grid.Row="3" Grid.Column="1"
+                          Margin="4" MinHeight="25"
+                          SelectedItem="{Binding Path=CurrentCommodity.UnitOfMeasureID, Mode=TwoWay,
+                                         ValidatesOnNotifyDataErrors=False}"
+                          ItemsSource="{Binding Path=UnitOfMeasureEntries}"
+                          DisplayMemberPath="UnitOfMeasureTag"         
+                          />
+                <TextBlock Grid.Row="1" Grid.Column="2"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="Part Type"/>
+                <ComboBox x:Name="comboBox_PartType" Grid.Row="1" Grid.Column="3" 
+                          Margin="4" MinHeight="25"
+                          ItemsSource="{Binding Path=CommodityTypeEntries}"
+                          SelectedItem="{Binding Path=CurrentCommodity.InventoryType, Mode=TwoWay,
+                                         ValidatesOnNotifyDataErrors=False}"
+                          DisplayMemberPath="TypeCode"/>
+                <TextBlock Grid.Row="2" Grid.Column="2"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="Reorder Level" />
+                <TextBox Grid.Row="2" Grid.Column="3"
+                          Margin="4" MinHeight="25"
+                         Text="{Binding Path=CurrentCommodity.ReorderLevel, Mode=TwoWay,
+                                ValidatesOnExceptions=True, NotifyOnValidationError=True}"/>
+                <TextBlock Grid.Row="3" Grid.Column="2"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="Discontinued" />
+                <CheckBox Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                          IsChecked="{Binding Path=CurrentCommodity.Discontinued, Mode=TwoWay}" />
+            </Grid>
+        </StackPanel>
+        <dat:ValidationSummary Grid.Row="2" Grid.Column="0"  Grid.ColumnSpan="3"
+                               Target="{Binding ElementName=LayoutRoot}" />
+    </Grid>
+</UserControl>

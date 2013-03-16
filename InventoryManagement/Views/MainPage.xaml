@@ -1,0 +1,187 @@
+﻿<UserControl x:Class="InventoryManagement.Client.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Toolkit"
+    xmlns:system="clr-namespace:System;assembly=mscorlib" 
+    xmlns:local="clr-namespace:InventoryManagement.Client;assembly=InventoryManagement.Client"
+    xmlns:common="clr-namespace:InventoryManagement.Common;assembly=InventoryManagement.Common"
+    xmlns:menu="clr-namespace:System.Windows.Controls;assembly=MenuControls"
+    mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480">
+
+    <UserControl.Resources>
+        <common:NotOperatorValueConverter x:Key="notOperatorValueConverter"/>
+        <common:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <toolkit:BusyIndicator Style="{StaticResource BusyIndicatorStyle}" IsBusy="{Binding Path=IsBusy}">
+        <common:MainPageControl x:Name="mainPageControl" IsLoggedIn="{Binding Path=IsLoggedIn}">
+            <common:MainPageControl.TitleContent>
+                <toolkit:DockPanel Style="{StaticResource MainPageTitleStyle}">
+                    <TextBlock Text="Inventory Management" Style="{StaticResource MainPageTitleTextOneStyle}"/>
+                    <TextBlock Text="for Imperial" Style="{StaticResource MainPageTitleTextTwoStyle}"/>
+                    <StackPanel Visibility="{Binding Path=IsLoggedIn, 
+                                             Mode=OneWay, 
+                                             Converter={StaticResource booleanToVisibilityConverter}}"
+                                Style="{StaticResource LogoutPanelStyle}">
+                        <TextBlock Text="{Binding Path=WelcomeText}"
+                                   Style="{StaticResource WelcomeTextStyle}"/>
+                        <TextBlock Text="|" Style="{StaticResource SpacerStyle}"/>
+                        <TextBlock Text="{Binding Path=CurrentScreenText}"
+                                   Style="{StaticResource CurrentScreenTextStyle}"/>
+                        <TextBlock Text="|" Style="{StaticResource SpacerStyle}"/>
+                        <HyperlinkButton x:Name="hyperlinkButton_Logout" Content="logout" 
+                                         Style="{StaticResource LogoutButtonStyle}"
+                                         Command="{Binding Path=LogoutCommand}"
+                                         IsEnabled="{Binding Path=IsLoggedOut,
+                                                     Mode=OneWay, 
+                                                     Converter={StaticResource notOperatorValueConverter}}">
+                            <HyperlinkButton.CommandParameter>
+                                <system:Boolean>false</system:Boolean>
+                            </HyperlinkButton.CommandParameter>
+                        </HyperlinkButton>
+                    </StackPanel>
+                </toolkit:DockPanel>
+            </common:MainPageControl.TitleContent>
+            <common:MainPageControl.LoggedInMenuContent>
+                <menu:Menu Style="{StaticResource LoggedInMenuStyle}">
+                    <menu:MenuItem Header="Home"
+                                   Command="{Binding Path=ChangeScreenCommand}"
+                                   CommandParameter="Home"/>
+                    <menu:MenuItem Header="Inventory">
+                        <menu:MenuItem Header="Check Out"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Check Out Inventory"/>
+                        <menu:MenuItem Header="Submit Order"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Submit Purchase Order"/>
+                        <menu:MenuItem Header="Commodities"
+                                       Visibility="{Binding Path=IsAdmin, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource booleanToVisibilityConverter}}"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Commodities"/>
+                    </menu:MenuItem>
+                    <menu:MenuItem Header="Jobs">
+                        <menu:MenuItem Header="New Job"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="New Job" />
+                        <menu:MenuItem Header="Open Jobs"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Open Jobs"/>
+                        <menu:MenuItem Header="All Jobs"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="All Jobs"/>
+                    </menu:MenuItem>
+                    <menu:MenuItem Header="Locations"
+                                   Command="{Binding Path=ChangeScreenCommand}"
+                                   CommandParameter="Locations"/>
+                    <menu:MenuItem Header="Reports">
+                        <menu:MenuItem Header="Usage Report"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Usage Report"/>
+                        <menu:MenuItem Header="Pick List Report"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Pick List Report"/>
+                        <menu:MenuItem Header="Leakage Report"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Leakage Report"/>
+                    </menu:MenuItem>
+                    <menu:MenuItem Header="Admin">
+                        <menu:MenuItem Header="My Profile"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="My Profile"/>
+                        <menu:MenuItem Header="User Maintenance"
+                                       Visibility="{Binding Path=IsAdmin, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource booleanToVisibilityConverter}}"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="User Maintenance"/>
+                        <menu:MenuItem Header="Leakage Adjustment"
+                                       Visibility="{Binding Path=IsAdmin, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource booleanToVisibilityConverter}}"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Leakage Adjustment"/>
+                        <menu:MenuItem Header="Commodity Types"
+                                       Visibility="{Binding Path=IsAdmin, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource booleanToVisibilityConverter}}"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Commodity Types"/>
+                        <menu:MenuItem Header="Vendors"
+                                       Visibility="{Binding Path=IsAdmin, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource booleanToVisibilityConverter}}"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Vendors"/>
+                        <menu:MenuItem Header="Units of Measure"
+                                       Visibility="{Binding Path=IsAdmin, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource booleanToVisibilityConverter}}"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Units of Measure"/>
+                        <menu:MenuItem Header="Means of Payment"
+                                       Visibility="{Binding Path=IsAdmin, 
+                                                    Mode=OneWay, 
+                                                    Converter={StaticResource booleanToVisibilityConverter}}"
+                                       Command="{Binding Path=ChangeScreenCommand}"
+                                       CommandParameter="Means of Payment"/>
+                    </menu:MenuItem>
+                    <!--<menu:MenuItem Header="Themes">
+                        <menu:MenuItem Header="Bureau Blue"
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="BureauBlue.xaml"
+                                       IsChecked="{Binding IsBureauBlueTheme}"/>
+                        <menu:MenuItem Header="Expression Light"                                           
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="ExpressionLight.xaml"
+                                       IsChecked="{Binding IsExpressionLightTheme}"/>
+                        <menu:MenuItem Header="Shiny Blue"
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="ShinyBlue.xaml"
+                                       IsChecked="{Binding IsShinyBlueTheme}"/>
+                        <menu:MenuItem Header="Twilight Blue"
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="TwilightBlue.xaml"
+                                       IsChecked="{Binding IsTwilightBlueTheme}"/>
+                    </menu:MenuItem> -->
+                </menu:Menu>
+            </common:MainPageControl.LoggedInMenuContent>
+            <common:MainPageControl.LoggedOutMenuContent>
+                <menu:Menu Style="{StaticResource LoggedOutMenuStyle}">
+                    <menu:MenuItem Header="Themes">
+                        <menu:MenuItem Header="Bureau Blue"
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="BureauBlue.xaml"
+                                       IsChecked="{Binding IsBureauBlueTheme}"/>
+                        <menu:MenuItem Header="Expression Light"                                           
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="ExpressionLight.xaml"
+                                       IsChecked="{Binding IsExpressionLightTheme}"/>
+                        <menu:MenuItem Header="Shiny Blue"
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="ShinyBlue.xaml"
+                                       IsChecked="{Binding IsShinyBlueTheme}"/>
+                        <menu:MenuItem Header="Twilight Blue"
+                                       Command="{Binding Path=ChangeThemeCommand}"
+                                       CommandParameter="TwilightBlue.xaml"
+                                       IsChecked="{Binding IsTwilightBlueTheme}"/>
+                    </menu:MenuItem>
+                </menu:Menu>
+            </common:MainPageControl.LoggedOutMenuContent>
+            <common:MainPageControl.LoginPageContent>
+                <Grid Style="{StaticResource MainLoginPageStyle}">
+                    <local:LoginForm HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </common:MainPageControl.LoginPageContent>
+            <common:MainPageControl.MainPageContent>
+                <ContentControl x:Name="mainPageContent" Style="{StaticResource MainPageContentStyle}">
+                    <local:Home/>
+                </ContentControl>
+            </common:MainPageControl.MainPageContent>
+        </common:MainPageControl>
+    </toolkit:BusyIndicator>
+
+</UserControl>

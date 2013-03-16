@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" ?>
+<hibernate-configuration  xmlns="urn:nhibernate-configuration-2.2" >
+
+    <!-- For simplicity, the NHibernate configuration is stored in this file.
+  It must be named hibernate.cfg.xml and marked in Visual Studio to be copied
+  to the output folder.  -->
+
+    <session-factory>
+
+        <!-- By default NHibernate is aggressive in closing connections between
+    SQL statments.  This unfortunately causes a problem when reading ID
+    numbers assigned by Access (e.g. in AutoNumber fields).-->
+        <property name="connection.release_mode">on_close</property>
+
+        <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
+        <property name="dialect">NHibernate.JetDriver.JetDialect, NHibernate.JetDriver</property>
+        <property name="connection.driver_class">NHibernate.JetDriver.JetDriver, NHibernate.JetDriver</property>
+
+        <property name="connection.connection_string">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\Database\ImperialInventoryManagement.accdb</property>
+    </session-factory>
+</hibernate-configuration>

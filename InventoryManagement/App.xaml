@@ -1,0 +1,22 @@
+﻿<Application 
+    x:Class="InventoryManagement.Client.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:common="clr-namespace:InventoryManagement.Common;assembly=InventoryManagement.Common"
+    xmlns:appsvc="clr-namespace:System.ServiceModel.DomainServices.Client.ApplicationServices;assembly=System.ServiceModel.DomainServices.Client.Web">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Assets/Styles.xaml"/>
+                <ResourceDictionary Source="Assets/BureauBlue.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+    <Application.ApplicationLifetimeObjects>
+        <common:WebContext>
+            <common:WebContext.Authentication>
+                <appsvc:FormsAuthentication/>
+            </common:WebContext.Authentication>
+        </common:WebContext>
+    </Application.ApplicationLifetimeObjects>
+</Application>

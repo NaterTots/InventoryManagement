@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InventoryManagementModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="InventoryManagementModelStoreContainer">
+          <EntitySet Name="Commodity" EntityType="InventoryManagementModel.Store.Commodity" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CommodityType" EntityType="InventoryManagementModel.Store.CommodityType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MeansOfPayment" EntityType="InventoryManagementModel.Store.MeansOfPayment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UnitOfMeasure" EntityType="InventoryManagementModel.Store.UnitOfMeasure" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="InventoryManagementModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Vendor" EntityType="InventoryManagementModel.Store.Vendor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WorkOrder" EntityType="InventoryManagementModel.Store.WorkOrder" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Commodity__Inven__22AA2996" Association="InventoryManagementModel.Store.FK__Commodity__Inven__22AA2996">
+            <End Role="CommodityType" EntitySet="CommodityType" />
+            <End Role="Commodity" EntitySet="Commodity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commodity__UnitO__239E4DCF" Association="InventoryManagementModel.Store.FK__Commodity__UnitO__239E4DCF">
+            <End Role="UnitOfMeasure" EntitySet="UnitOfMeasure" />
+            <End Role="Commodity" EntitySet="Commodity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commodity__Vendo__24927208" Association="InventoryManagementModel.Store.FK__Commodity__Vendo__24927208">
+            <End Role="Vendor" EntitySet="Vendor" />
+            <End Role="Commodity" EntitySet="Commodity" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vendor__MeansOfP__15502E78" Association="InventoryManagementModel.Store.FK__Vendor__MeansOfP__15502E78">
+            <End Role="MeansOfPayment" EntitySet="MeansOfPayment" />
+            <End Role="Vendor" EntitySet="Vendor" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Commodity">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="int" Nullable="false" />
+          <Property Name="PartNumber" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="InventoryType" Type="int" Nullable="false" />
+          <Property Name="PartDescription" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="UnitOfMeasureID" Type="tinyint" Nullable="false" />
+          <Property Name="ReorderLevel" Type="int" Nullable="false" />
+          <Property Name="Vendor" Type="int" Nullable="false" />
+          <Property Name="Discontinued" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CommodityType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="TypeCode" Type="nchar" Nullable="false" MaxLength="25" />
+          <Property Name="Description" Type="nchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="MeansOfPayment">
+          <Key>
+            <PropertyRef Name="PaymentMethodID" />
+          </Key>
+          <Property Name="PaymentMethodID" Type="int" Nullable="false" />
+          <Property Name="PaymentType" Type="nchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="UnitOfMeasure">
+          <Key>
+            <PropertyRef Name="UnitOfMeasureID" />
+          </Key>
+          <Property Name="UnitOfMeasureID" Type="tinyint" Nullable="false" />
+          <Property Name="UnitOfMeasureTag" Type="nchar" Nullable="false" MaxLength="20" />
+          <Property Name="Description" Type="nchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="char" MaxLength="100" />
+          <Property Name="FirstName" Type="char" MaxLength="100" />
+          <Property Name="LastName" Type="char" MaxLength="100" />
+          <Property Name="Email" Type="char" MaxLength="200" />
+          <Property Name="PasswordHash" Type="char" MaxLength="200" />
+          <Property Name="PasswordSalt" Type="char" MaxLength="50" />
+          <Property Name="PasswordQuestion" Type="char" MaxLength="400" />
+          <Property Name="PasswordAnswerHash" Type="char" MaxLength="200" />
+          <Property Name="PasswordAnswerSalt" Type="char" MaxLength="50" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="ProfileReset" Type="int" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="VendorID" Type="int" Nullable="false" />
+          <Property Name="VendorName" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="Address" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="City" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="State" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="Zip" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="Email" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="PhoneNumber" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="ContactPerson" Type="nchar" Nullable="false" MaxLength="255" />
+          <Property Name="MeansOfPayment" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkOrder">
+          <Key>
+            <PropertyRef Name="WorkOrderID" />
+          </Key>
+          <Property Name="WorkOrderID" Type="int" Nullable="false" />
+          <Property Name="JobID" Type="char" MaxLength="255" />
+          <Property Name="CustomerName" Type="char" MaxLength="255" />
+          <Property Name="Address" Type="char" MaxLength="255" />
+          <Property Name="JobStatus" Type="int" />
+        </EntityType>
+        <Association Name="FK__Commodity__Inven__22AA2996">
+          <End Role="CommodityType" Type="InventoryManagementModel.Store.CommodityType" Multiplicity="1" />
+          <End Role="Commodity" Type="InventoryManagementModel.Store.Commodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommodityType">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Commodity">
+              <PropertyRef Name="InventoryType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commodity__UnitO__239E4DCF">
+          <End Role="UnitOfMeasure" Type="InventoryManagementModel.Store.UnitOfMeasure" Multiplicity="1" />
+          <End Role="Commodity" Type="InventoryManagementModel.Store.Commodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitOfMeasure">
+              <PropertyRef Name="UnitOfMeasureID" />
+            </Principal>
+            <Dependent Role="Commodity">
+              <PropertyRef Name="UnitOfMeasureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commodity__Vendo__24927208">
+          <End Role="Vendor" Type="InventoryManagementModel.Store.Vendor" Multiplicity="1" />
+          <End Role="Commodity" Type="InventoryManagementModel.Store.Commodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="Commodity">
+              <PropertyRef Name="Vendor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vendor__MeansOfP__15502E78">
+          <End Role="MeansOfPayment" Type="InventoryManagementModel.Store.MeansOfPayment" Multiplicity="1" />
+          <End Role="Vendor" Type="InventoryManagementModel.Store.Vendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeansOfPayment">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="Vendor">
+              <PropertyRef Name="MeansOfPayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InventoryManagementModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="InventoryManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Commodities" EntityType="InventoryManagementModel.Commodity" />
+          <EntitySet Name="CommodityTypes" EntityType="InventoryManagementModel.CommodityType" />
+          <EntitySet Name="MeansOfPayments" EntityType="InventoryManagementModel.MeansOfPayment" />
+          <EntitySet Name="UnitOfMeasures" EntityType="InventoryManagementModel.UnitOfMeasure" />
+          <EntitySet Name="Vendors" EntityType="InventoryManagementModel.Vendor" />
+          <AssociationSet Name="FK__Commodity__Inven__22AA2996" Association="InventoryManagementModel.FK__Commodity__Inven__22AA2996">
+            <End Role="CommodityType" EntitySet="CommodityTypes" />
+            <End Role="Commodity" EntitySet="Commodities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commodity__UnitO__239E4DCF" Association="InventoryManagementModel.FK__Commodity__UnitO__239E4DCF">
+            <End Role="UnitOfMeasure" EntitySet="UnitOfMeasures" />
+            <End Role="Commodity" EntitySet="Commodities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Commodity__Vendo__24927208" Association="InventoryManagementModel.FK__Commodity__Vendo__24927208">
+            <End Role="Vendor" EntitySet="Vendors" />
+            <End Role="Commodity" EntitySet="Commodities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vendor__MeansOfP__15502E78" Association="InventoryManagementModel.FK__Vendor__MeansOfP__15502E78">
+            <End Role="MeansOfPayment" EntitySet="MeansOfPayments" />
+            <End Role="Vendor" EntitySet="Vendors" />
+          </AssociationSet>
+          <EntitySet Name="WorkOrders" EntityType="InventoryManagementModel.WorkOrder" />
+          <EntitySet Name="Users" EntityType="InventoryManagementModel.User" />
+        </EntityContainer>
+        <EntityType Name="Commodity">
+          <Key>
+            <PropertyRef Name="InventoryID" />
+          </Key>
+          <Property Name="InventoryID" Type="Int32" Nullable="false" />
+          <Property Name="PartNumber" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="InventoryType" Type="Int32" Nullable="false" />
+          <Property Name="PartDescription" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="UnitOfMeasureID" Type="Byte" Nullable="false" />
+          <Property Name="ReorderLevel" Type="Int32" Nullable="false" />
+          <Property Name="Vendor" Type="Int32" Nullable="false" />
+          <Property Name="Discontinued" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CommodityType" Relationship="InventoryManagementModel.FK__Commodity__Inven__22AA2996" FromRole="Commodity" ToRole="CommodityType" />
+          <NavigationProperty Name="UnitOfMeasure" Relationship="InventoryManagementModel.FK__Commodity__UnitO__239E4DCF" FromRole="Commodity" ToRole="UnitOfMeasure" />
+          <NavigationProperty Name="Vendor1" Relationship="InventoryManagementModel.FK__Commodity__Vendo__24927208" FromRole="Commodity" ToRole="Vendor" />
+        </EntityType>
+        <EntityType Name="CommodityType">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="TypeCode" Type="String" Nullable="false" MaxLength="25" Unicode="true" FixedLength="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Commodities" Relationship="InventoryManagementModel.FK__Commodity__Inven__22AA2996" FromRole="CommodityType" ToRole="Commodity" />
+        </EntityType>
+        <EntityType Name="MeansOfPayment">
+          <Key>
+            <PropertyRef Name="PaymentMethodID" />
+          </Key>
+          <Property Name="PaymentMethodID" Type="Int32" Nullable="false" />
+          <Property Name="PaymentType" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Vendors" Relationship="InventoryManagementModel.FK__Vendor__MeansOfP__15502E78" FromRole="MeansOfPayment" ToRole="Vendor" />
+        </EntityType>
+        <EntityType Name="UnitOfMeasure">
+          <Key>
+            <PropertyRef Name="UnitOfMeasureID" />
+          </Key>
+          <Property Name="UnitOfMeasureID" Type="Byte" Nullable="false" />
+          <Property Name="UnitOfMeasureTag" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Commodities" Relationship="InventoryManagementModel.FK__Commodity__UnitO__239E4DCF" FromRole="UnitOfMeasure" ToRole="Commodity" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="VendorID" />
+          </Key>
+          <Property Name="VendorID" Type="Int32" Nullable="false" />
+          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="Zip" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="ContactPerson" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="true" />
+          <Property Name="MeansOfPayment" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Commodities" Relationship="InventoryManagementModel.FK__Commodity__Vendo__24927208" FromRole="Vendor" ToRole="Commodity" />
+          <NavigationProperty Name="MeansOfPayment1" Relationship="InventoryManagementModel.FK__Vendor__MeansOfP__15502E78" FromRole="Vendor" ToRole="MeansOfPayment" />
+        </EntityType>
+        <Association Name="FK__Commodity__Inven__22AA2996">
+          <End Role="CommodityType" Type="InventoryManagementModel.CommodityType" Multiplicity="1" />
+          <End Role="Commodity" Type="InventoryManagementModel.Commodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CommodityType">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Commodity">
+              <PropertyRef Name="InventoryType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commodity__UnitO__239E4DCF">
+          <End Role="UnitOfMeasure" Type="InventoryManagementModel.UnitOfMeasure" Multiplicity="1" />
+          <End Role="Commodity" Type="InventoryManagementModel.Commodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitOfMeasure">
+              <PropertyRef Name="UnitOfMeasureID" />
+            </Principal>
+            <Dependent Role="Commodity">
+              <PropertyRef Name="UnitOfMeasureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Commodity__Vendo__24927208">
+          <End Role="Vendor" Type="InventoryManagementModel.Vendor" Multiplicity="1" />
+          <End Role="Commodity" Type="InventoryManagementModel.Commodity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="VendorID" />
+            </Principal>
+            <Dependent Role="Commodity">
+              <PropertyRef Name="Vendor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vendor__MeansOfP__15502E78">
+          <End Role="MeansOfPayment" Type="InventoryManagementModel.MeansOfPayment" Multiplicity="1" />
+          <End Role="Vendor" Type="InventoryManagementModel.Vendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MeansOfPayment">
+              <PropertyRef Name="PaymentMethodID" />
+            </Principal>
+            <Dependent Role="Vendor">
+              <PropertyRef Name="MeansOfPayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WorkOrder">
+          <Key>
+            <PropertyRef Name="WorkOrderID" />
+          </Key>
+          <Property Type="Int32" Name="WorkOrderID" Nullable="false" />
+          <Property Type="String" Name="JobID" MaxLength="255" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="CustomerName" MaxLength="255" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="255" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="JobStatus" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="UserName" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="FirstName" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="LastName" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="Email" MaxLength="200" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="PasswordHash" MaxLength="200" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="PasswordSalt" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="PasswordQuestion" MaxLength="400" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="PasswordAnswerHash" MaxLength="200" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="PasswordAnswerSalt" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="UserType" />
+          <Property Type="Int32" Name="ProfileReset" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InventoryManagementModelStoreContainer" CdmEntityContainer="InventoryManagementEntities">
+          <EntitySetMapping Name="Commodities"><EntityTypeMapping TypeName="InventoryManagementModel.Commodity"><MappingFragment StoreEntitySet="Commodity">
+            <ScalarProperty Name="InventoryID" ColumnName="InventoryID" />
+            <ScalarProperty Name="PartNumber" ColumnName="PartNumber" />
+            <ScalarProperty Name="InventoryType" ColumnName="InventoryType" />
+            <ScalarProperty Name="PartDescription" ColumnName="PartDescription" />
+            <ScalarProperty Name="UnitOfMeasureID" ColumnName="UnitOfMeasureID" />
+            <ScalarProperty Name="ReorderLevel" ColumnName="ReorderLevel" />
+            <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+            <ScalarProperty Name="Discontinued" ColumnName="Discontinued" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CommodityTypes"><EntityTypeMapping TypeName="InventoryManagementModel.CommodityType"><MappingFragment StoreEntitySet="CommodityType">
+            <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+            <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="MeansOfPayments"><EntityTypeMapping TypeName="InventoryManagementModel.MeansOfPayment"><MappingFragment StoreEntitySet="MeansOfPayment">
+            <ScalarProperty Name="PaymentMethodID" ColumnName="PaymentMethodID" />
+            <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UnitOfMeasures"><EntityTypeMapping TypeName="InventoryManagementModel.UnitOfMeasure"><MappingFragment StoreEntitySet="UnitOfMeasure">
+            <ScalarProperty Name="UnitOfMeasureID" ColumnName="UnitOfMeasureID" />
+            <ScalarProperty Name="UnitOfMeasureTag" ColumnName="UnitOfMeasureTag" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Vendors"><EntityTypeMapping TypeName="InventoryManagementModel.Vendor"><MappingFragment StoreEntitySet="Vendor">
+            <ScalarProperty Name="VendorID" ColumnName="VendorID" />
+            <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+            <ScalarProperty Name="Address" ColumnName="Address" />
+            <ScalarProperty Name="City" ColumnName="City" />
+            <ScalarProperty Name="State" ColumnName="State" />
+            <ScalarProperty Name="Zip" ColumnName="Zip" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+            <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+            <ScalarProperty Name="MeansOfPayment" ColumnName="MeansOfPayment" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="WorkOrders">
+            <EntityTypeMapping TypeName="InventoryManagementModel.WorkOrder">
+              <MappingFragment StoreEntitySet="WorkOrder">
+                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="JobID" ColumnName="JobID" />
+                <ScalarProperty Name="WorkOrderID" ColumnName="WorkOrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="InventoryManagementModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ProfileReset" ColumnName="ProfileReset" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="PasswordAnswerSalt" ColumnName="PasswordAnswerSalt" />
+                <ScalarProperty Name="PasswordAnswerHash" ColumnName="PasswordAnswerHash" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="InventoryManagement">
+        <EntityTypeShape EntityType="InventoryManagementModel.Commodity" Width="1.5" PointX="5.25" PointY="1" Height="2.7427376302083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementModel.CommodityType" Width="1.5" PointX="7.5" PointY="1" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementModel.MeansOfPayment" Width="1.5" PointX="0.75" PointY="1.75" Height="1.4279589843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementModel.UnitOfMeasure" Width="1.5" PointX="3" PointY="4.375" Height="1.5923063151041648" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementModel.Vendor" Width="1.5" PointX="3" PointY="1" Height="2.9070849609374996" IsExpanded="true" />
+        <AssociationConnector Association="InventoryManagementModel.FK__Commodity__Inven__22AA2996" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="1.7961531575520837" />
+          <ConnectorPoint PointX="6.75" PointY="1.7961531575520837" />
+        </AssociationConnector>
+        <AssociationConnector Association="InventoryManagementModel.FK__Commodity__UnitO__239E4DCF" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.59375" />
+          <ConnectorPoint PointX="5.28125" PointY="4.59375" />
+          <ConnectorPoint PointX="5.28125" PointY="3.7427376302083335" />
+        </AssociationConnector>
+        <AssociationConnector Association="InventoryManagementModel.FK__Commodity__Vendo__24927208" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.3713688151041667" />
+          <ConnectorPoint PointX="5.25" PointY="2.3713688151041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="InventoryManagementModel.FK__Vendor__MeansOfP__15502E78" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.4639794921875" />
+          <ConnectorPoint PointX="3" PointY="2.4639794921875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="InventoryManagementModel.WorkOrder" Width="1.5" PointX="5.375" PointY="4.875" Height="1.7566536458333317" />
+        <EntityTypeShape EntityType="InventoryManagementModel.User" Width="1.5" PointX="0.75" PointY="6.75" Height="2.9070849609374996" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

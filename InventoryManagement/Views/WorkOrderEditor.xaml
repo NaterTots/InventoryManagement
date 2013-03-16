@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="InventoryManagement.Client.WorkOrderEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL4"
+    xmlns:dat="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data.Input"
+    xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+    xmlns:data="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data"
+    mc:Ignorable="d" d:DesignHeight="725" d:DesignWidth="978">
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="326*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="295*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="600*" />
+            <ColumnDefinition Width="94*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                   Margin="4" Text="Job Number" />
+        <TextBox x:Name="textBox_PartNumber" Grid.Row="0" Grid.Column="1"
+                 VerticalAlignment="Center" 
+                 Text="{Binding Path=CurrentWorkOrder.JobID, Mode=TwoWay,
+                        ValidatesOnExceptions=True, NotifyOnValidationError=True}"/>
+        <Border Grid.Row="0" Grid.Column="2"
+                BorderBrush="Silver" BorderThickness="1"
+                CornerRadius="3" Margin="5">
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" Text="Job ID" />
+                <TextBlock HorizontalAlignment="Center"
+                           Text="{Binding Path=CurrentWorkOrder.ID, Mode=OneWay, TargetNullValue='None',
+                                  ValidatesOnNotifyDataErrors=False}" />
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           FontWeight="Bold" Margin="4" 
+                           Text="Job Info" />
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="Customer Name" />
+                <TextBox Grid.Row="1" Grid.Column="1"
+                          Margin="4" MinHeight="25" IsReadOnly="True"
+                         Text="{Binding Path=CurrentWorkOrder.CustomerName, Mode=TwoWay,
+                                ValidatesOnExceptions=True, NotifyOnValidationError=True}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           VerticalAlignment="Center" Margin="4"
+                           Text="Job Status" />
+                <ComboBox x:Name="comboBox_Vendor" Grid.Row="2" Grid.Column="1" 
+                          Margin="4" MinHeight="25"
+                          ItemsSource="{Binding Path=VendorEntries}"
+                          SelectedItem="{Binding Path=CurrentWorkOrder.JobStatus, Mode=TwoWay,
+                                         ValidatesOnNotifyDataErrors=False}"/>
+                <TextBlock Grid.Row="1" Grid.Column="2"
+                           VerticalAlignment="Center" Margin="4" 
+                           Text="Address"/>
+                <TextBox Grid.Row="1" Grid.Column="3"
+                          Margin="4" MinHeight="25" IsReadOnly="True"
+                         Text="{Binding Path=CurrentWorkOrder.Address, Mode=TwoWay,
+                                ValidatesOnExceptions=True, NotifyOnValidationError=True}"/>
+            </Grid>
+        </StackPanel>
+            <controls:GridSplitter Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                               HorizontalAlignment="Stretch" />
+        <controls:TabControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+            <controls:TabItem Header="Commodities">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ComboBox x:Name="comboBox_Commodity" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                          Margin="4" MinHeight="25"
+                          ItemsSource="{Binding Path=CommodityEntries}"
+                          SelectedItem="{Binding Path=SelectedCommodity, Mode=TwoWay,
+                                         ValidatesOnNotifyDataErrors=False}"/>
+                    <TextBox Grid.Row="0" Grid.Column="2"
+                          Margin="4" MinHeight="25" IsReadOnly="True"
+                         Text="{Binding Path=SelectedCommodityQuantity, Mode=TwoWay,
+                                ValidatesOnExceptions=True, NotifyOnValidationError=True}"/>
+                    <Button x:Name="button_AddCommodity" Grid.Row="0" Grid.Column="3"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            Height="23" Width="112"
+                            Margin="6,0,0,0" Content="Add" 
+                            Command="{Binding Path=AddCommodityCommand}" />
+                    
+                    <data:DataGrid x:Name="dataGrid_Commodities" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="3"
+                                   AutoGenerateColumns="False" SelectionMode="Single"
+                                   ItemsSource="{Binding Path=CurrentWorkOrder.Commodities, ValidatesOnNotifyDataErrors=False}">
+                        <data:DataGrid.Columns>
+                            <data:DataGridTextColumn Header="Commodity Type" Binding="{Binding Path=PartNumber, ValidatesOnNotifyDataErrors=False}" Width="2*" />
+                            <data:DataGridTextColumn Header="Quantity" Binding="{Binding Path=Quantity, ValidatesOnNotifyDataErrors=False}" Width="*" />
+                        </data:DataGrid.Columns>
+                    </data:DataGrid>
+                    <Button x:Name="button_RemoveCommodity" Grid.Row="4" Grid.Column="3" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center" 
+                            Height="23" Width="112"
+                            Margin="6,0,0,0" Content="Remove"
+                            Command="{Binding Path=RemoveCommodityCommand}"
+                            CommandParameter="{Binding SelectedItem, ElementName=dataGrid_Commodities, ValidatesOnNotifyDataErrors=False}" />
+                </Grid>
+            </controls:TabItem>
+        </controls:TabControl>
+        <dat:ValidationSummary Grid.Row="4" Grid.Column="0"  Grid.ColumnSpan="3"
+                               Target="{Binding ElementName=LayoutRoot}" />
+    </Grid>
+</UserControl>

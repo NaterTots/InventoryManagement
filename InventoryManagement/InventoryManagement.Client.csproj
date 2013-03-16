@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B9CF0701-4FF1-4B80-B5AE-6B00393788D8}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InventoryManagement.Client</RootNamespace>
+    <AssemblyName>InventoryManagement.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>InventoryManagement.Client.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>InventoryManagement.Client.App</SilverlightAppEntry>
+    <TestPageFileName>TestPage.html</TestPageFileName>
+    <CreateTestPage>true</CreateTestPage>
+    <ValidateXaml>true</ValidateXaml>
+    <EnableOutOfBrowser>true</EnableOutOfBrowser>
+    <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
+    <UsePlatformExtensions>false</UsePlatformExtensions>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <LinkedServerProject>
+    </LinkedServerProject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GalaSoft.MvvmLight.Extras.SL4">
+      <HintPath>..\Assemblies\GalaSoft.MvvmLight.Extras.SL4.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.SL4">
+      <HintPath>..\Assemblies\GalaSoft.MvvmLight.SL4.dll</HintPath>
+    </Reference>
+    <Reference Include="MenuControls">
+      <HintPath>..\Assemblies\MenuControls.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ComponentModel.Composition.Initialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows" />
+    <Reference Include="mscorlib" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Controls.Data, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Data.Input" />
+    <Reference Include="System.ServiceModel.DomainServices.Client" />
+    <Reference Include="System.ServiceModel.DomainServices.Client.Web" />
+    <Reference Include="System.ServiceModel.Web.Extensions" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
+      <HintPath>..\Assemblies\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Input, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit">
+      <HintPath>..\Assemblies\System.Windows.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Toolkit.Internals">
+      <HintPath>..\Assemblies\System.Windows.Controls.Toolkit.Internals.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\Assemblies\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Windows.Browser" />
+    <Reference Include="System.Windows.Controls" />
+    <Reference Include="System.Windows.Controls.Navigation" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ErrorWindow.xaml.cs">
+      <DependentUpon>ErrorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AllWorkOrders.xaml.cs">
+      <DependentUpon>AllWorkOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Commodities.xaml.cs">
+      <DependentUpon>Commodities.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommodityEditor.xaml.cs">
+      <DependentUpon>CommodityEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\LoginForm.xaml.cs">
+      <DependentUpon>LoginForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewWorkOrder.xaml.cs">
+      <DependentUpon>NewWorkOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenWorkOrders.xaml.cs">
+      <DependentUpon>OpenWorkOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VendorEditor.xaml.cs">
+      <DependentUpon>VendorEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Vendors.xaml.cs">
+      <DependentUpon>Vendors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkOrderEditor.xaml.cs">
+      <DependentUpon>WorkOrderEditor.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Assets\Styles.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </Page>
+    <Page Include="Views\LoginForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AppManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\OutOfBrowserSettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\ErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Assets\BureauBlue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InventoryManagement.Common\InventoryManagement.Common.csproj">
+      <Project>{E427FEB1-E152-4515-BC0C-F6B5A26385BD}</Project>
+      <Name>InventoryManagement.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryManagement.Data\InventoryManagement.Data.csproj">
+      <Project>{03571134-6BDB-4B67-824B-E27A90E41B42}</Project>
+      <Name>InventoryManagement.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryManagement.Model\InventoryManagement.Model.csproj">
+      <Project>{031DCB20-9C22-4447-A2DF-197BAA9E17E4}</Project>
+      <Name>InventoryManagement.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InventoryManagement.ViewModel\InventoryManagement.ViewModel.csproj">
+      <Project>{D19BA72D-CD7D-40CF-A607-6A57D379B64D}</Project>
+      <Name>InventoryManagement.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Signin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\CommodityEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\WorkOrderEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\Commodities.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\AllWorkOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\OpenWorkOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\NewWorkOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\VendorEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\Vendors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

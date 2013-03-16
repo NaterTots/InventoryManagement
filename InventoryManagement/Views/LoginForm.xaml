@@ -1,0 +1,221 @@
+﻿<UserControl x:Class="InventoryManagement.Client.LoginForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dat="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data.Input"
+    xmlns:common="clr-namespace:InventoryManagement.Common;assembly=InventoryManagement.Common"
+    mc:Ignorable="d" d:DesignWidth="360" Width="360">
+
+    <UserControl.Resources>
+        <common:NullVisibilityConverter x:Key="nullVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <common:FlipControl IsFlipped="{Binding Path=IsFlipped, Mode=OneWay}">
+        <common:FlipControl.FrontContent>
+            <!-- User login screen -->
+            <Border Style="{StaticResource LoginFormFrontStyle}">
+                <Grid x:Name="frontContentGrid"
+                      common:DefaultButtonHelper.DefaultButton="{Binding ElementName=loginButton}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
+                           Margin="0,0,0,10"
+                           Source="/InventoryManagement.Client;component/Assets/Signin.png" />
+                    <TextBlock Grid.Column="0" Grid.Row="1"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="User name" />
+                    <TextBlock Grid.Column="0" Grid.Row="2"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="Password" />
+                    <TextBlock Grid.Column="0" Grid.Row="3"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="Keep me signed in" />
+                    <TextBox x:Name="userNameTextBox"
+                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                         Margin="6" Width="220"
+                         Text="{Binding Path=CurrentUser.Name, Mode=TwoWay, 
+                                        TargetNullValue='',
+                                        ValidatesOnExceptions=True, 
+                                        NotifyOnValidationError=True}"
+                         TextChanged="userNameTextBox_TextChanged" />
+                    <PasswordBox x:Name="passwordPasswordBox"
+                             Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                             Margin="6" Width="220"
+                             Password="{Binding Path=CurrentUser.Password, Mode=TwoWay, 
+                                                TargetNullValue='',
+                                                ValidatesOnExceptions=True, 
+                                                NotifyOnValidationError=True}"
+                             PasswordChanged="passwordPasswordBox_PasswordChanged" />
+                    <CheckBox x:Name="keepMeSignedInCheckBox"
+                          Grid.Column="1" Grid.Row="3"
+                          HorizontalAlignment="Left" VerticalAlignment="Center"
+                          Margin="6"
+                          IsChecked="{Binding Path=CurrentUser.IsPersistent, Mode=TwoWay}" />
+                    <TextBox x:Name="loginScreenErrorMessageTextBox"
+                        Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
+                        VerticalAlignment="Top"
+                        HorizontalScrollBarVisibility="Auto"
+                        Background="Red" Foreground="White" 
+                        Text="{Binding Path=LoginScreenErrorMessage, Mode=TwoWay}"
+                        Visibility="{Binding RelativeSource={RelativeSource Self}, 
+                          Path=Text, Mode=OneWay, 
+                          Converter={StaticResource nullVisibilityConverter}}"
+                        IsReadOnly="True" />
+                    <dat:ValidationSummary VerticalAlignment="Top"
+                        Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3"
+                        Target="{Binding ElementName=frontContentGrid}" />
+                    <StackPanel Orientation="Vertical"
+                            Grid.Column="0" Grid.Row="5"  Grid.ColumnSpan="2"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Margin="6,10,6,6">
+                        <TextBlock Text="Forgot Password?"/>
+                        <StackPanel Orientation="Horizontal">
+                            <HyperlinkButton x:Name="resetNowLink" Content="Reset now"
+                             Command="{Binding Path=ResetNowCommand}"
+                             CommandParameter="{Binding Path=CurrentUser}"/>
+                            <TextBlock Text="(Enter user name first)"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button x:Name="loginButton"
+                        Grid.Column="2" Grid.Row="5"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                        Margin="0,0,20,10" Height="23" Width="75" Content="OK"
+                        Command="{Binding Path=LoginCommand}"
+                        CommandParameter="{Binding Path=CurrentUser}"
+                        IsEnabled="False" />
+                </Grid>
+            </Border>
+        </common:FlipControl.FrontContent>
+        <common:FlipControl.BackContent>
+            <!-- Reset password screen -->
+            <Border Style="{StaticResource LoginFormBackStyle}">
+                <Grid x:Name="backContentGrid"
+                      common:DefaultButtonHelper.DefaultButton="{Binding ElementName=resetPasswordButton}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                               Margin="6,6,0,0"
+                               Text="Please complete all fields below to reset password"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="User name" />
+                    <TextBlock Grid.Column="0" Grid.Row="2"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="Security question" />
+                    <TextBlock Grid.Column="0" Grid.Row="3"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="Security answer" />
+                    <TextBlock Grid.Column="0" Grid.Row="4"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="New password" />
+                    <TextBlock Grid.Column="0" Grid.Row="5"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Margin="6" Text="Confirm password" />
+                    <TextBox x:Name="userName2TextBox"
+                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                         Margin="6" Width="220"
+                         Text="{Binding Path=CurrentPasswordResetUser.Name, Mode=OneWay, 
+                                        TargetNullValue=''}"
+                         IsReadOnly="True" />
+                    <TextBox x:Name="securityQuestionTextBox"
+                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                         Margin="6" Width="220"
+                         Text="{Binding Path=CurrentPasswordResetUser.PasswordQuestion, Mode=OneWay, 
+                                        TargetNullValue=''}"
+                         IsReadOnly="True" />
+                    <PasswordBox x:Name="securityAnswerPasswordBox"
+                         Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                         Margin="6" Width="220"
+                         Password="{Binding Path=CurrentPasswordResetUser.PasswordAnswer, Mode=TwoWay, 
+                                        TargetNullValue='',
+                                        ValidatesOnExceptions=True, 
+                                        NotifyOnValidationError=True}"    
+                         PasswordChanged="securityAnswerPasswordBox_PasswordChanged" />
+                    <TextBlock x:Name="ActualPasswordTextBlock"
+                               Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
+                               Text="{Binding Path=CurrentPasswordResetUser.ActualPassword, Mode=TwoWay}"
+                               Visibility="Collapsed"/>
+                    <PasswordBox x:Name="newPasswordPasswordBox"
+                             Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                             Margin="6" Width="220"
+                             Password="{Binding Path=CurrentPasswordResetUser.NewPassword, Mode=TwoWay, 
+                                                TargetNullValue='',
+                                                ValidatesOnExceptions=True, 
+                                                NotifyOnValidationError=True}"
+                             PasswordChanged="newPasswordPasswordBox_PasswordChanged"
+                             LostFocus="newPasswordPasswordBox_LostFocus" />
+                    <PasswordBox x:Name="confirmPasswordPasswordBox"
+                             Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2"
+                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                             Margin="6" Width="220"
+                             Password="{Binding Path=CurrentPasswordResetUser.PasswordConfirmation, Mode=TwoWay, 
+                                                TargetNullValue='',
+                                                ValidatesOnExceptions=True, 
+                                                NotifyOnValidationError=True}"
+                             PasswordChanged="confirmPasswordPasswordBox_PasswordChanged" />
+                    <TextBox x:Name="resetPasswordScreenErrorMessageTextBox"
+                             Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3"
+                             VerticalAlignment="Top"
+                             HorizontalScrollBarVisibility="Auto"
+                             Background="Red" Foreground="White" 
+                             Text="{Binding Path=ResetPasswordScreenErrorMessage, Mode=TwoWay}"
+                             Visibility="{Binding RelativeSource={RelativeSource Self}, 
+                               Path=Text, Mode=OneWay, 
+                               Converter={StaticResource nullVisibilityConverter}}"
+                             IsReadOnly="True" />
+                    <dat:ValidationSummary VerticalAlignment="Top"
+                                           Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3"
+                                           Target="{Binding ElementName=backContentGrid}" />
+                    <StackPanel Orientation="Vertical"
+                            Grid.Column="0" Grid.Row="7"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Margin="6,10,6,6">
+                        <TextBlock Text="Already registered?"/>
+                        <HyperlinkButton x:Name="backToLoginButton" Content="Back to Login"
+                                         Command="{Binding Path=BackToLoginCommand}"/>
+                    </StackPanel>
+                    <Button x:Name="resetPasswordButton"
+                        Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2"
+                        HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                        Margin="0,0,20,10" Height="23" Width="75" Content="OK"
+                        Command="{Binding Path=ResetPasswordCommand}"
+                        CommandParameter="{Binding Path=CurrentPasswordResetUser}"
+                        IsEnabled="False" />
+                </Grid>
+            </Border>
+        </common:FlipControl.BackContent>
+    </common:FlipControl>
+
+</UserControl>

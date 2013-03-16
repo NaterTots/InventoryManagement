@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+    <class name="InventoryManagement.Data.Web.Commodity, InventoryManagement.Data.Web" table="Commodities">
+        <id name="InventoryID" column="InventoryID" type="int" unsaved-value="0">
+            <generator class="identity" />
+        </id>
+
+        <property name="PartNumber" column="PartNumber"  type="string" length="255" />
+        <property name="InventoryType" column="InventoryType"  type="int"/>
+        <property name="PartDescription" column="PartDescription" type="String" length="255"/>
+        <property name="UnitOfMeasureID" column="UnitOfMeasureID" type="int"/>
+        <property name="ReorderLevel" column="ReorderLevel" type="int"/>
+        <property name="Vendor" column="Vendor" type="int"/>
+        <property name="Discontinued" column="Discontinued" type="bool"/>
+    </class>
+    <!--
+    <class name="InventoryManagement.Data.Web.Inventory, InventoryManagement.Data.Web" table="Inventory">
+
+        <property name="InventoryID" column="InventoryID" type="int" />
+        <property name="CribLocation" column="CribLocation"  type="int"/>
+        <property name="Quantity" column="Quantity" type="int"/>
+    </class>
+    -->
+    <class name="InventoryManagement.Data.Web.WorkOrder, InventoryManagement.Data.Web" table="WorkOrders">
+
+        <id name="WorkOrderID" column="WorkOrderID" type="int" unsaved-value="0">
+            <generator class="identity" />
+        </id>
+
+        <property name="JobID" column="JobID"  type="string" length="255" />
+        <property name="CustomerName" column="CustomerName"  type="String" length="255"/>
+        <property name="Address" column="Address" type="String" length="255"/>
+        <property name="JobStatus" column="JobStatus" type="int"/>
+        
+        <bag name="Commodities" table="WorkOrderXInventory" lazy="false" >
+
+            <key column="WorkOrderID"></key>
+
+            <many-to-many class="InventoryManagement.Data.Web.Commodity" column="InventoryID"></many-to-many>
+        </bag>
+    </class>
+    
+    <class name="InventoryManagement.Data.Web.CommodityType, InventoryManagement.Data.Web" table="CommodityType">
+        <id name="TypeID" column="TypeID" type="int" unsaved-value="0">
+            <generator class="identity" />
+        </id>
+
+        <property name="TypeCode" column="TypeCode"  type="string" length="25" />
+        <property name="Description" column="Description" type="String" length="255"/>
+    </class>
+    
+    <class name="InventoryManagement.Data.Web.Vendor, InventoryManagement.Data.Web" table="Vendors">
+        <id name="VendorID" column="VendorID" type="int" unsaved-value="0">
+            <generator class="identity" />
+        </id>
+
+        <property name="VendorName" column="VendorName"  type="string" length="255" />
+        <property name="Address" column="Address"  type="string" length="255" />
+        <property name="City" column="City"  type="string" length="255" />
+        <property name="State" column="State"  type="string" length="255" />
+        <property name="Zip" column="Zip"  type="string" length="255" />
+        <property name="Email" column="Email"  type="string" length="255" />
+        <property name="PhoneNumber" column="PhoneNumber"  type="string" length="255" />
+        <property name="ContactPerson" column="ContactPerson"  type="string" length="255" />
+        <property name="MeansOfPayment" column="MeansOfPayment"  type="int"/>
+    </class>
+    <!--
+    <class name="InventoryManagement.Data.Web.WorkOrderXInventory, InventoryManagement.Data.Web" table="WorkOrderXInventory">
+
+        <property name="WorkOrderID" column="WorkOrderID" type="int" />
+        <property name="InventoryID" column="InventoryID"  type="int"/>
+        <property name="Quantity" column="Quantity" type="int"/>
+    </class>
+    -->
+    <class name="InventoryManagement.Data.Web.UnitOfMeasure, InventoryManagement.Data.Web" table="UnitOfMeasure">
+        <id name="UnitOfMeasureID" column="UnitOfMeasureID" type="int" unsaved-value="0">
+            <generator class="identity" />
+        </id>
+
+        <property name="UnitOfMeasureTag" column="UnitOfMeasureTag"  type="string" length="20" />
+        <property name="Description" column="Description" type="String" length="255"/>
+    </class>
+    <class name="InventoryManagement.Data.Web.MeansOfPayment, InventoryManagement.Data.Web" table="MeansOfPayment">
+        <id name="PaymentMethodID" column="PaymentMethodID" type="int" unsaved-value="0">
+            <generator class="identity" />
+        </id>
+
+        <property name="PaymentType" column="PaymentType"  type="string" length="255" />
+    </class>
+    <class name="InventoryManagement.Data.Web.User, InventoryManagement.Data.Web" table="Users">
+        <id name="UserID" column="UserID" type="int" unsaved-value="0">
+            <generator class="identity" />
+        </id>
+
+        <property name="UserName" column="UserName"  type="string" length="100" />
+        <property name="FirstName" column="FirstName"  type="string" length="100" />
+        <property name="LastName" column="LastName"  type="string" length="100" />
+        <property name="Email" column="Email"  type="string" length="200" />
+        <property name="PasswordHash" column="PasswordHash"  type="string" length="200" />
+        <property name="PasswordSalt" column="PasswordSalt"  type="string" length="20" />
+        <property name="PasswordQuestion" column="PasswordQuestion"  type="string" length="255" />
+        <property name="PasswordAnswerHash" column="PasswordAnswerHash"  type="string" length="200" />
+        <property name="PasswordAnswerSalt" column="PasswordAnswerSalt"  type="string" length="20"/>
+        <property name="UserType" column="UserType"  type="int"/>
+        <property name="ProfileReset" column="ProfileReset"  type="bool"/>
+    </class>
+</hibernate-mapping>
